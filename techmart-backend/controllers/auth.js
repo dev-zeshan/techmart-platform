@@ -52,21 +52,24 @@ exports.signup = async (req, res, next) => {
       next(err);
     }
   };
-  
 
-  exports.logout= async (req, res,  next)=>{
-    try{
+  exports.logout = async (req, res, next) => {
+  try {
+    res.removeHeader("Authorization");
     
-        res.setHeader("authorization", "");
-        res.status(201).json({
-         status: "success",
-         message: "user logged out successfull"
-        })
-     }
-     
-     catch(err){
-         next(err)
-       }
+    res.status(200).json({
+      status: "success",
+      message: "User logged out successfully"
+    });
+  } catch (err) {
+    console.error("Logout error:", err);
+    res.status(500).json({
+      status: "error",
+      message: "Logout failed",
+      error: err.message
+    });
   }
+};
+
 
   

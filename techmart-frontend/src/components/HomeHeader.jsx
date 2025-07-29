@@ -1,12 +1,16 @@
 import { useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { FaSearch, FaBars } from "react-icons/fa";
+import { Link,  useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Logout from "../pages/logout";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import CartDisplay from "../pages/Cart";
+import Logout from "../pages/auth/logout";
+import CartDisplay from "../pages/payments/Cart";
+import { Search, Menu, ShoppingCart, X } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+
 
 function HeaderHome() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -41,32 +45,32 @@ function HeaderHome() {
     <div className="flex space-x-8">
       <Link
         to="/"
-        className="text-gray-800 hover:text-purple-900 transition-all duration-300 py-2 font-medium"
+        className="py-2 font-medium text-gray-600 transition-all duration-300 hover:text-gray-900"
       >
         Home
       </Link>
       <Link
         to="/home/products"
-        className="text-gray-800 hover:text-purple-900 transition-all duration-300 py-2 font-medium"
+        className="py-2 font-medium text-gray-600 transition-all duration-300 hover:text-gray-900"
       >
         Products
       </Link>
       <Link
         to="/home/categories"
-        className="text-gray-800 hover:text-purple-900 transition-all duration-300 py-2 font-medium"
+        className="py-2 font-medium text-gray-600 transition-all duration-300 hover:text-gray-900"
       >
         Categories
       </Link>
       <button
         onClick={openCart}
-        className="text-gray-800 hover:text-purple-900 transition-all duration-300 py-2 font-medium"
+        className="py-2 font-medium text-gray-600 transition-all duration-300 hover:text-gray-900"
       >
-        <ShoppingCartCheckoutIcon />
+        <ShoppingCart />
       </button>
       {!user && (
         <Link
           to="/login"
-          className="text-gray-800 hover:text-purple-700 transition-all duration-300 py-2 font-medium"
+          className="py-2 font-medium text-gray-600 transition-all duration-300 hover:text-gray-900"
         >
           Login
         </Link>
@@ -74,7 +78,7 @@ function HeaderHome() {
       {!user && (
         <Link
           to="/signup"
-          className="bg-black text-white hover:text-purple-700 rounded-full px-6 py-2 font-semibold transition-all duration-300"
+          className="px-6 py-2 font-semibold text-white transition-all duration-300 bg-black rounded-full hover:text-purple-700"
         >
           Sign Up
         </Link>
@@ -85,48 +89,48 @@ function HeaderHome() {
 
   return (
     <>
-      <header className="bg-white shadow-md">
-        <div className="flex justify-between items-center p-2 max-w-screen-xl mx-auto">
-          <div className="text-purple-900 text-3xl font-bold">
-            <span>ElectroHub</span>
+      <header className="shadow-md bg-background">
+        <div className="flex items-center justify-between max-w-screen-xl p-2 mx-auto">
+          <div className="text-2xl font-bold text-orange-500">
+            <span>TechMart</span>
           </div>
 
-          <div className="hidden lg:flex justify-center p-2 flex-grow">
+          <div className="justify-center flex-grow hidden p-2 lg:flex">
             <div className="relative w-full max-w-md">
               <input
                 value={searchInput}
                 onChange={onChangeSearch}
                 onKeyDown={handleKey}
                 type="text"
-                className="p-2 w-full rounded-full bg-gray-100 text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-900 transition-all duration-300"
+                className="w-full p-2 text-gray-800 transition-all duration-300 bg-gray-100 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-900"
                 placeholder="Search products..."
               />
               <button
                 aria-label="Search"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600 py-2 px-2 rounded-full hover:text-black focus:outline-none transition-all duration-200"
+                className="absolute px-2 py-2 text-gray-600 transition-all duration-200 transform -translate-y-1/2 rounded-full right-2 top-1/2 hover:text-black focus:outline-none"
                 onClick={handleSearch}
               >
-                <FaSearch className="text-xl" />
+                <Search className="text-xl" />
               </button>
             </div>
           </div>
 
-          <div className="hidden lg:flex space-x-8">{headerActions}</div>
+          <div className="hidden space-x-8 lg:flex">{headerActions}</div>
 
           <div className="lg:hidden">
             <button
               onClick={handleMenuToggle}
-              className="text-gray-800 p-2 rounded-full hover:bg-gray-200 focus:outline-none"
+              className="p-2 text-gray-800 rounded-full hover:bg-gray-200 focus:outline-none"
             >
-              <FaBars className="text-2xl" />
+              <Menu className="text-2xl" />
             </button>
           </div>
         </div>
 
         {isMenuOpen && (
-          <div className="lg:hidden bg-teal-600 text-white p-4 space-y-4">
+          <div className="p-4 space-y-4 text-white bg-gray-100 lg:hidden">
             {headerActions.props.children.map((action, index) => (
-              <div key={index} className="hover:bg-teal-500 p-2 rounded-md">
+              <div key={index} className="p-2 rounded-md hover:bg-orange-500">
                 {action}
               </div>
             ))}
@@ -134,8 +138,8 @@ function HeaderHome() {
         )}
       </header>
 
-      <Modal open={isCartOpen} onClose={closeCart}>
-        <Box
+      <Dialog open={isCartOpen} onClose={closeCart}>
+        <DialogContent
           sx={{
             position: "fixed",
             top: 0,
@@ -163,8 +167,8 @@ function HeaderHome() {
             &times;
           </button>
           <CartDisplay />
-        </Box>
-      </Modal>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

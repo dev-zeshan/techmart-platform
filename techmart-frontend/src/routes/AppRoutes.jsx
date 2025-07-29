@@ -1,41 +1,41 @@
 import { lazy } from "react";
-import PATHS from "./Paths.jsx";
+import PATHS from "./paths.js";
 
 import LandingPage from "../pages/PublicPages/LandingPage.jsx";
-const Signup = lazy(() => import("../pages/signup"));
-const Login = lazy(() => import("../pages/login"));
-const Cart = lazy(() => import("../pages/Cart.jsx"));
+const Signup = lazy(() => import("../pages/auth/signup"));
+const Login = lazy(() => import("../pages/auth/login"));
+const Cart = lazy(() => import("../pages/payments/Cart.jsx"));
 const NotFound = lazy(() => import("../pages/NotFound"));
-const OrderCreate = lazy(() => import("../pages/PublicPages/Order.jsx"));
+const OrderCreate = lazy(() => import("../components/orders/Order.jsx"));
 
-const HomeLayout = lazy(() => import("../Layout/HomeLayout.jsx"));
-const AdminLayout = lazy(() => import("../Layout/AdminLayout"));
+const HomeLayout = lazy(() => import("../components/layout/HomeLayout.jsx"));
+const AdminLayout = lazy(() => import("../components/layout/AdminLayout.jsx"));
 
-const Products = lazy(() => import("../pages/PublicPages/ProductsList.jsx"));
-const Categories = lazy(() => import("../pages/PublicPages/categories.jsx"));
-const subCategories = lazy(
-  () => import("../pages/PublicPages/subCategoriesList.jsx")
+const Products = lazy(() => import("../components/products/ProductsList.jsx"));
+const Categories = lazy(() => import("../pages/categories/categories.jsx"));
+const SubCategories = lazy(
+  () => import("../pages/categories/subCategoriesList.jsx")
 );
 const ProductDetails = lazy(
-  () => import("../pages/PublicPages/ProductDetails.jsx")
+  () => import("../components/products/ProductDetails.jsx")
 );
 
 const ProtectedRoute = lazy(() => import("../ProtectedRoute"));
-const Dashboard = lazy(() => import("../pages/Dashboard"));
-const Product = lazy(() => import("../pages/product.jsx"));
-
-const Orders = lazy(() => import("../pages/order"));
-const Users = lazy(() => import("../pages/Users"));
-const Category = lazy(() => import("../pages/Category"));
-const Subcategory = lazy(() => import("../pages/SubCategory"));
-const UserForm = lazy(() => import("../pages/UserForm"));
-const ProductForm = lazy(() => import("../pages/ProductForm"));
-const Logout = lazy(() => import("../pages/logout"));
+const Dashboard = lazy(() => import("../pages/dashboard/Dashboard"));
+const Product = lazy(() => import("../pages/products/product.jsx"));
+const Orders = lazy(() => import("../pages/orders/order"));
+const Users = lazy(() => import("../pages/users/Users.jsx"));
+const Category = lazy(() => import("../pages/categories/Category.jsx"));
+const Subcategory = lazy(() => import("../pages/categories/SubCategory"));
+const UserForm = lazy(() => import("../components/users/UserForm.jsx"));
+const ProductForm = lazy(() => import("../components/products/ProductForm"));
+const Logout = lazy(() => import("../pages/auth/logout"));
 
 const routes = [
   { path: PATHS.MAIN, element: <LandingPage /> },
   { path: PATHS.SIGNUP, element: <Signup /> },
   { path: PATHS.LOGIN, element: <Login /> },
+ 
   {
     path: PATHS.HOME,
     element: <HomeLayout />,
@@ -44,7 +44,7 @@ const routes = [
       { path: "products", element: <Products /> },
       { path: "product/:id", element: <ProductDetails /> },
       { path: "categories", element: <Categories /> },
-      { path: "subcategories", element: <subCategories /> },
+      { path: "subcategories", element: <SubCategories /> },
       { path: "order", element: <OrderCreate /> },
     ],
   },

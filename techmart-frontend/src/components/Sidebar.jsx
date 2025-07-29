@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Sidebar as ProSidebar,
   Menu,
@@ -7,14 +7,15 @@ import {
 } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import Logout from "../pages/logout";
-import { FaBars } from "react-icons/fa6";
-import MenuIcon from "@mui/icons-material/Menu";
-import { AiFillDashboard } from "react-icons/ai";
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import PersonIcon from "@mui/icons-material/Person";
-import LocalMallIcon from "@mui/icons-material/LocalMall";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import HomeIcon from "@mui/icons-material/Home";
+import {
+  Menu as MenuIcon,
+  Settings,
+  User,
+  ShoppingCart,
+  Home,
+  Package,
+  LayoutDashboard,
+} from "lucide-react";
 
 function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
@@ -30,117 +31,82 @@ function Sidebar() {
       collapsedWidth="64px"
       backgroundColor="purple"
     >
-      <div
-        className="flex items-center justify-between p-4"
-        style={{ color: "black", backgroundColor: "purple" }}
-      >
-        <h2 className="text-xl font-bold flex items-center">
-          {!collapsed && (
-            <span className="flex items-center">
-              <AdminPanelSettingsIcon className="mr-2 text-2xl" />
-              Admin
-            </span>
-          )}
-        </h2>
-
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="text-black hover:text-gray-300"
-        >
-          <FaBars className="text-xl" />
+      {/* Header */}
+      <div className="flex items-center justify-between p-4 text-white bg-purple-700">
+        {!collapsed && (
+          <div className="flex items-center text-xl font-bold">
+            <Settings className="w-5 h-5 mr-2" />
+            Admin
+          </div>
+        )}
+        <button onClick={() => setCollapsed(!collapsed)} className="text-white">
+          <MenuIcon className="w-5 h-5" />
         </button>
       </div>
 
-      <Menu style={{ color: "black", backgroundColor: "purple" }}>
+      {/* Menu */}
+      <Menu className="text-white bg-purple-700">
         <MenuItem>
-          <div>
-            <Link to="/admin/dashboard">
-              <div className="flex items-center">
-                <AiFillDashboard className="mr-2 text-xl" />
-                {!collapsed && "Dashboard"}
-              </div>
-            </Link>
-          </div>
+          <Link to="/admin/dashboard" className="flex items-center">
+            <LayoutDashboard className="w-5 h-5 mr-2" />
+            {!collapsed && "Dashboard"}
+          </Link>
         </MenuItem>
 
         <MenuItem>
-          <div>
-            <Link to="/">
-              <div className="flex items-center">
-                <HomeIcon className="mr-2 text-xl" />
-                {!collapsed && "Home"}
-              </div>
-            </Link>
-          </div>
+          <Link to="/" className="flex items-center">
+            <Home className="w-5 h-5 mr-2" />
+            {!collapsed && "Home"}
+          </Link>
         </MenuItem>
 
         <MenuItem>
-          <div>
-            <Link to="/admin/product">
-              <div className="flex items-center">
-                <LocalMallIcon className="mr-2 text-xl" />
-                {!collapsed && "Products"}
-              </div>
-            </Link>
-          </div>
+          <Link to="/admin/product" className="flex items-center">
+            <Package className="w-5 h-5 mr-2" />
+            {!collapsed && "Products"}
+          </Link>
         </MenuItem>
 
         <MenuItem>
-          <div>
-            <Link to="/admin/user">
-              <div className="flex items-center">
-                <PersonIcon className="mr-2 text-xl" />
-                {!collapsed && "User"}
-              </div>
-            </Link>
-          </div>
+          <Link to="/admin/user" className="flex items-center">
+            <User className="w-5 h-5 mr-2" />
+            {!collapsed && "User"}
+          </Link>
         </MenuItem>
 
         <MenuItem>
-          <div>
-            <Link to="/admin/order">
-              <div className="flex items-center">
-                <ShoppingCartIcon className="mr-2 text-xl" />
-                {!collapsed && "Orders"}
-              </div>
-            </Link>
-          </div>
+          <Link to="/admin/order" className="flex items-center">
+            <ShoppingCart className="w-5 h-5 mr-2" />
+            {!collapsed && "Orders"}
+          </Link>
         </MenuItem>
 
-        <SubMenu>
+        {/* Category / Subcategory */}
+        <SubMenu label={!collapsed ? "More" : ""}>
           <MenuItem>
-            <div>
-              <Link
-                to="/admin/category"
-                className="block w-full px-3 py-2 transition-colors duration-300"
-                style={{ backgroundColor: "purple", color: "white" }}
-              >
-                {!collapsed && <span>Category</span>}
-              </Link>
-            </div>
+            <Link to="/admin/category" className="text-white">
+              {!collapsed && "Category"}
+            </Link>
           </MenuItem>
           <MenuItem>
-            <div>
-              <Link
-                to="/admin/subcategory"
-                className="block w-full px-3 py-2  transition-colors duration-300"
-                style={{ backgroundColor: "gray", color: "white" }}
-              >
-                {!collapsed && <span>Subcategory</span>}
-              </Link>
-            </div>
+            <Link to="/admin/subcategory" className="text-white">
+              {!collapsed && "Subcategory"}
+            </Link>
           </MenuItem>
         </SubMenu>
       </Menu>
-      <div className="mt-60 text-white px-4 ">
+
+      {/* Logout */}
+      <div className="mt-60 px-4 text-white">
         <Logout />
       </div>
 
+      {/* Mobile Toggle Button */}
       <button
         onClick={() => setToggled(!toggled)}
-        className="fixed top-4 text-2xl left-4 lg:hidden z-50 bg-teal-600 text-white p-2 rounded-md"
+        className="fixed top-4 left-4 z-50 p-2 text-white bg-teal-600 rounded-md lg:hidden"
       >
-        <MenuIcon />
+        <MenuIcon className="w-5 h-5" />
       </button>
     </ProSidebar>
   );
