@@ -5,11 +5,11 @@ const PORT = 3001;
 
 mongoose
   .connect(DB_CONN)
-  .then(() => console.log("MongoDB Connected"))
+  .then(() => console.log(" MongoDB Connected"))
   .catch((err) => {
-    console.error(err.message);
+    console.error("Connection Error:", err.message);
   });
 
-app.listen(PORT, () => console.log(`Server running on PORT:${PORT}`));
+app.listen(PORT, () => console.log(` Server running on PORT:${PORT}`));
 
 module.exports = app;

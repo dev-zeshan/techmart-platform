@@ -1,10 +1,13 @@
 
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Box } from "lucide-react";
 
 import Header from "@/components/shared/Header";
 import Footer from "../../components/shared/Footer";
 import { Button } from "@/components/ui/button";
+import Categories from "@/components/home/Categories";
+import LatestProduct from "@/components/home/LatestProduct";
 
 const LandingPage = () => {
   const user = useSelector((state) => state.auth.user);
@@ -13,58 +16,7 @@ const LandingPage = () => {
   return (
     <div className="font-sans bg-gray-100">
       <div className="sticky top-0 z-50 border border-gray-200 bg-white/90 backdrop-blur-lg">
-        {/* <Header
-          title="TechMart"
-          actions={[
-            <a
-              href="#features"
-              key="features"
-              className=" text-gray-500 transition-colors duration-200 hover:text-gray-900"
-            >
-              FEATURES
-            </a>,
-            <a
-              href="#about"
-              key="about"
-              className=" text-gray-500 transition-colors duration-200 hover:text-gray-900"
-            >
-              ABOUT
-            </a>,
-            <a
-              href="#contact"
-              key="contact"
-              className=" text-gray-500 transition-colors duration-200 hover:text-gray-900"
-            >
-              CONTACT
-            </a>,
-            admin && (
-              <Link
-                to="/admin/dashboard"
-                className="text-lg font-medium text-orange-500 transition-colors duration-200 hover:text-orange-600"
-              >
-                Admin
-              </Link>
-            ),
-            !user && (
-              <Link
-                to="/login"
-                key="login"
-                className="px-6 py-2.5 text-sm font-semibold transition-all duration-200 rounded-full border-2 border-orange-500 text-orange-500 hover:bg-orange-600 hover:text-white transform hover:scale-105"
-              >
-                Sign In
-              </Link>
-            ),
-            !user && (
-              <Link
-                to="/signup"
-                key="signup"
-                className="px-6 py-2.5 text-sm font-semibold transition-all duration-200 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-500 transform hover:scale-105 shadow-lg"
-              >
-                Sign Up
-              </Link>
-            ),
-          ]}
-        /> */}
+        
         <Header/>
       </div>
 
@@ -114,6 +66,10 @@ const LandingPage = () => {
         </div>
       </section>
 
+      <section id="categories">
+        <Categories/>
+      </section>
+
       <section
         id="features"
         className="py-20 bg-gradient-to-br from-background via-white to-background"
@@ -121,7 +77,7 @@ const LandingPage = () => {
         <div className="px-6 mx-auto max-w-7xl">
           <div className="mb-16 text-center">
             <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-orange-500 rounded-full bg-orange-500/10">
-              ✨ Features
+               Features
             </div>
             <h2 className="mb-6 text-5xl font-bold text-gray-900">
               Why Choose ElectroHub?
@@ -177,6 +133,10 @@ const LandingPage = () => {
         </div>
       </section>
 
+      <section id="latestProducts">
+        <LatestProduct/>
+      </section>
+
       <section
         id="about"
         className="py-20 bg-gradient-to-r from-orange-500/5 via-orange-600/5 to-orange-500/5"
@@ -198,13 +158,14 @@ const LandingPage = () => {
 
           <div className="grid grid-cols-1 gap-8 mt-16 md:grid-cols-3">
             {[
-              { number: "10K+", label: "Happy Customers" },
-              { number: "99.9%", label: "Uptime" },
-              { number: "24/7", label: "Support" }
+              { title: "Free Delivery", label: "And free returns. See checkout for delivery dates." , icon:<Box/>},
+              { title: "99.9%", label: "Uptime" },
+              { title: "24/7", label: "Support" }
             ].map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="mb-2 text-4xl font-black text-orange-500">{stat.number}</div>
-                <div className="font-medium text-orange-600">{stat.label}</div>
+                <div>{stat.icon}</div>
+                <div className="mb-2 text-4xl font-black text-gray-900">{stat.title}</div>
+                <div className="font-medium text-gray500">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -229,12 +190,7 @@ const LandingPage = () => {
           </p>
           
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <button className="px-6 py-2 text-lg font-bold transition-all duration-300 transform border shadow-2xl group text-textorange-500 bg-gradient-to-r from-white to-gray-100 rounded-xl hover:shadow-white/25 hover:scale-105 border-white/20">
-              <span className="flex items-center gap-2">
-                Send Message
-                <span className="transition-transform duration-300 group-hover:translate-x-1">✉️</span>
-              </span>
-            </button>
+            
             
             <button className="px-6 py-2 text-lg font-semibold text-white transition-all duration-300 transform border-2 border-white/30 rounded-xl hover:bg-white/10 hover:border-white hover:scale-105 backdrop-blur-sm">
               Schedule Call
